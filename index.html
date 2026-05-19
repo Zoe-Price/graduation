@@ -547,6 +547,7 @@ function showPanel(id) {
   }
 }
 
+// sort: [day 1=Tue 2=Wed 3=Thu, hour in 24h]
 const venues = [
   {
     key: 'old-yard',
@@ -554,9 +555,9 @@ const venues = [
     lat: 42.37445, lng: -71.11772,
     color: '#A71D31', zoom: 17,
     events: [
-      { title: 'Baccalaureate Procession', time: 'Tue 1:15–2:00 PM',  ticket: 'free'   },
-      { title: 'Dessert Reception',        time: 'Tue 4:00–5:00 PM',  ticket: 'free'   },
-      { title: 'Class Day Picnic',         time: 'Wed Noon–2:00 PM',  ticket: 'ticket' },
+      { title: 'Baccalaureate Procession', time: 'Tue · 1:15–2:00 PM',  ticket: 'free',   sort: [1, 13.25] },
+      { title: 'Dessert Reception',        time: 'Tue · 4:00–5:00 PM',  ticket: 'free',   sort: [1, 16]    },
+      { title: 'Class Day Picnic',         time: 'Wed · Noon–2:00 PM',  ticket: 'ticket', sort: [2, 12]    },
     ]
   },
   {
@@ -565,10 +566,10 @@ const venues = [
     lat: 42.374515, lng: -71.116194,
     color: '#A71D31', zoom: 17,
     events: [
-      { title: 'Baccalaureate Ceremony',       time: 'Tue 2:00–3:30 PM',     ticket: 'free'   },
-      { title: 'Band & Choruses Concert',      time: 'Tue 8:00–10:00 PM',    ticket: 'free'   },
-      { title: 'Class Day Exercises',          time: 'Wed 2:00–4:00 PM',     ticket: 'ticket' },
-      { title: '375th Commencement Exercises', time: 'Thu 9:30 AM–12:15 PM', ticket: 'ticket' },
+      { title: 'Baccalaureate Ceremony',       time: 'Tue · 2:00–3:30 PM',     ticket: 'free',   sort: [1, 14]  },
+      { title: 'Band & Choruses Concert',      time: 'Tue · 8:00–10:00 PM',    ticket: 'free',   sort: [1, 20]  },
+      { title: 'Class Day Exercises',          time: 'Wed · 2:00–4:00 PM',     ticket: 'ticket', sort: [2, 14]  },
+      { title: '375th Commencement Exercises', time: 'Thu · 9:30 AM–12:15 PM', ticket: 'ticket', sort: [3, 9.5] },
     ]
   },
   {
@@ -577,7 +578,7 @@ const venues = [
     lat: 42.374024, lng: -71.116357,
     color: '#D5BF86', zoom: 17,
     events: [
-      { title: 'Class of 2026 Photograph', time: 'Tue 3:30–4:00 PM', ticket: 'free' },
+      { title: 'Class of 2026 Photograph', time: 'Tue · 3:30–4:00 PM', ticket: 'free', sort: [1, 15.5] },
     ]
   },
   {
@@ -586,9 +587,9 @@ const venues = [
     lat: 42.36936, lng: -71.11650,
     color: '#A71D31', zoom: 17,
     events: [
-      { title: 'Senior Breakfast',     time: 'Thu early AM',           ticket: 'free'   },
-      { title: 'Family Reception',     time: 'Wed 4:30–6:30 PM',       ticket: 'free'   },
-      { title: 'Ceremony & Luncheon', time: 'Thu after Commencement',  ticket: 'ticket' },
+      { title: 'Family Reception',    time: 'Wed · 4:30–6:30 PM',       ticket: 'free',   sort: [2, 16.5] },
+      { title: 'Senior Breakfast',    time: 'Thu · Early morning (TBD)', ticket: 'free',   sort: [3, 7]    },
+      { title: 'Ceremony & Luncheon', time: 'Thu · After Commencement',  ticket: 'ticket', sort: [3, 12.5] },
     ]
   },
   {
@@ -597,14 +598,15 @@ const venues = [
     lat: 42.37358, lng: -71.11450,
     color: '#D5BF86', zoom: 17,
     events: [
-      { title: 'AFVS Commencement Party', time: 'Thu 4:00 PM', ticket: 'free' },
+      { title: 'AFVS Commencement Party', time: 'Thu · 4:00 PM', ticket: 'free', sort: [3, 16] },
     ]
   },
 ];
 
 function buildPopup(v) {
+  const sorted = [...v.events].sort((a, b) => a.sort[0] - b.sort[0] || a.sort[1] - b.sort[1]);
   let html = `<div class="popup-venue">${v.name}</div>`;
-  v.events.forEach(e => {
+  sorted.forEach(e => {
     const b = e.ticket === 'ticket' ? '<span class="popup-badge pb-ticket">Ticket Req.</span>'
                                     : '<span class="popup-badge pb-free">Free</span>';
     html += `<div class="popup-event"><strong>${e.title}</strong>${b}<br>
