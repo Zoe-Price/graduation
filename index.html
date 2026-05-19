@@ -6,17 +6,16 @@
   <title>Harvard Commencement 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <style>
     :root {
-      --deep:   #3F0D12;
+      --deep:    #3F0D12;
       --crimson: #A71D31;
       --cream:   #F1F0CC;
       --gold:    #D5BF86;
       --brown:   #8D775F;
-      --ink:     #1c0508;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,324 +24,246 @@
     body {
       font-family: 'EB Garamond', Georgia, serif;
       background: var(--cream);
-      color: var(--ink);
+      color: var(--deep);
       min-height: 100vh;
     }
 
-    /* ─── HEADER ─── */
+    /* ── HEADER ── */
     header {
       background: var(--deep);
-      padding: 3rem 2rem 2.8rem;
+      padding: 2.8rem 2rem 2.5rem;
     }
-    .header-inner {
-      max-width: 860px;
-      margin: 0 auto;
-    }
-    .header-label {
-      font-family: 'EB Garamond', serif;
-      font-size: .95rem;
-      font-style: italic;
+    .header-inner { max-width: 900px; margin: 0 auto; }
+
+    .header-eyebrow {
+      font-family: 'Outfit', sans-serif;
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
       color: var(--gold);
-      letter-spacing: .04em;
-      margin-bottom: .9rem;
+      margin-bottom: .8rem;
       opacity: .85;
     }
     header h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-size: clamp(2.6rem, 6.5vw, 4.4rem);
       font-weight: 900;
-      line-height: .95;
+      line-height: 1.0;
       color: var(--cream);
       letter-spacing: -.02em;
     }
-    header h1 em {
+    header h1 span {
+      display: block;
+      font-family: 'Playfair Display', serif;
       font-style: italic;
       font-weight: 400;
+      font-size: clamp(1.2rem, 3vw, 1.85rem);
       color: var(--gold);
-      display: block;
-      font-size: .65em;
       letter-spacing: -.01em;
-      margin-top: .2em;
+      margin-top: .3rem;
     }
     .header-rule {
-      width: 48px;
-      height: 2px;
+      width: 44px; height: 2px;
       background: var(--crimson);
-      margin: 1.4rem 0 1.1rem;
+      margin: 1.3rem 0 1rem;
     }
-    .header-meta {
-      font-family: 'EB Garamond', serif;
-      font-size: 1.05rem;
+    .header-sub {
+      font-family: 'Outfit', sans-serif;
+      font-size: .9rem;
+      font-weight: 400;
       color: var(--brown);
-      letter-spacing: .01em;
+      letter-spacing: .07em;
     }
 
-    /* ─── NAV ─── */
+    /* ── NAV ── */
     nav {
       background: var(--deep);
-      border-top: 1px solid rgba(213,191,134,.12);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      border-top: 1px solid rgba(213,191,134,.13);
+      position: sticky; top: 0; z-index: 100;
     }
-    .nav-inner {
-      max-width: 860px;
-      margin: 0 auto;
-      display: flex;
-    }
+    .nav-inner { max-width: 900px; margin: 0 auto; display: flex; }
     .tab-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: 'EB Garamond', serif;
-      font-size: 1rem;
-      font-style: italic;
-      letter-spacing: .05em;
+      flex: 1; background: none; border: none; cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      font-size: .88rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
       color: var(--brown);
-      padding: .8rem 1.4rem .75rem;
-      transition: color .2s;
-      border-bottom: 2px solid transparent;
-      position: relative;
+      padding: .82rem 1rem;
+      transition: color .2s, background .2s;
+      border-bottom: 3px solid transparent;
     }
-    .tab-btn:hover { color: var(--gold); }
-    .tab-btn.active { color: var(--cream); border-bottom: 2px solid var(--gold); }
+    .tab-btn:hover { color: var(--gold); background: rgba(255,255,255,.04); }
+    .tab-btn.active { color: var(--cream); border-bottom: 3px solid var(--gold); }
 
-    /* ─── MAIN ─── */
-    main {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 3rem 2rem 5rem;
-    }
+    /* ── MAIN ── */
+    main { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 4.5rem; }
     .panel { display: none; }
-    .panel.active { display: block; animation: rise .35s ease both; }
+    .panel.active { display: block; animation: fadeUp .4s ease both; }
 
-    /* ─── TICKET KEY ─── */
+    /* ── TICKET KEY ── */
     .ticket-key {
-      display: flex;
-      align-items: center;
-      gap: 1.6rem;
-      flex-wrap: wrap;
-      padding: .75rem 0 1.5rem;
-      border-bottom: 1px solid rgba(63,13,18,.12);
-      margin-bottom: 2.5rem;
-      font-family: 'EB Garamond', serif;
-      font-size: .92rem;
-      color: var(--brown);
+      background: white;
+      border-radius: 6px;
+      padding: .8rem 1.1rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid var(--gold);
+      display: flex; gap: 1.4rem; flex-wrap: wrap; align-items: center;
     }
     .ticket-key strong {
-      font-family: 'Playfair Display', serif;
-      font-size: .82rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--deep);
+      font-family: 'Outfit', sans-serif;
+      font-size: .76rem; font-weight: 700;
+      letter-spacing: .09em; text-transform: uppercase;
     }
-    .key-item { display: flex; align-items: center; gap: .4rem; }
-    .key-dot  { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .key-item { font-family: 'Outfit', sans-serif; font-size: .82rem; display: flex; align-items: center; gap: .35rem; }
+    .key-dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
-    /* ─── DAY SECTION ─── */
-    .day-section { margin-bottom: 3.5rem; }
-
+    /* ── DAY SECTION ── */
+    .day-section { margin-bottom: 2.8rem; }
     .day-header {
-      margin-bottom: 1.6rem;
-      padding-bottom: .7rem;
-      border-bottom: 2px solid var(--deep);
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
+      display: flex; align-items: baseline; gap: .9rem;
+      margin-bottom: 1.3rem; padding-bottom: .6rem;
+      border-bottom: 2px solid var(--gold);
     }
     .day-name {
       font-family: 'Playfair Display', serif;
-      font-size: 1.9rem;
-      font-weight: 900;
-      color: var(--deep);
-      letter-spacing: -.02em;
+      font-size: 1.8rem; font-weight: 900;
+      color: var(--crimson); letter-spacing: -.01em;
     }
     .day-date {
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: 1rem;
-      color: var(--brown);
+      font-family: 'Outfit', sans-serif;
+      font-size: .8rem; font-weight: 500;
+      color: var(--brown); letter-spacing: .1em; text-transform: uppercase;
     }
 
-    /* ─── EVENT CARD ─── */
+    /* ── EVENT CARD ── */
     .event-card {
-      padding: 1.3rem 0 1.3rem 1.2rem;
-      border-left: 2px solid var(--gold);
-      margin-bottom: 1.4rem;
-      transition: border-color .2s;
+      background: white;
+      border-left: 4px solid var(--brown);
+      border-radius: 0 6px 6px 0;
+      padding: 1.1rem 1.3rem;
+      margin-bottom: .9rem;
+      transition: box-shadow .2s, transform .15s;
     }
-    .event-card:hover { border-left-color: var(--crimson); }
+    .event-card:hover { box-shadow: 0 4px 18px rgba(63,13,18,.11); transform: translateX(3px); }
     .event-card.tickets    { border-left-color: var(--crimson); }
-    .event-card.restricted { border-left-color: var(--brown); }
     .event-card.no-tickets { border-left-color: var(--gold); }
+    .event-card.restricted { border-left-color: var(--brown); }
 
-    .event-meta {
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: .95rem;
-      color: var(--brown);
-      margin-bottom: .3rem;
-      display: flex;
-      align-items: center;
-      gap: .7rem;
-      flex-wrap: wrap;
+    .event-time {
+      font-family: 'Outfit', sans-serif;
+      font-size: .8rem; font-weight: 600;
+      color: var(--brown); letter-spacing: .07em; text-transform: uppercase;
+      margin-bottom: .22rem;
     }
-    .event-meta-sep { opacity: .4; }
-
     .event-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.28rem;
-      font-weight: 700;
-      color: var(--deep);
-      line-height: 1.2;
+      font-size: 1.22rem; font-weight: 700;
+      color: var(--deep); line-height: 1.2; margin-bottom: .3rem;
+    }
+    .event-location {
+      font-family: 'Outfit', sans-serif;
+      font-size: .8rem; color: var(--brown);
       margin-bottom: .55rem;
+      display: flex; align-items: center; gap: .3rem;
     }
-
+    .event-location::before { content: '📍'; font-size: .74rem; }
     .event-desc {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #3a1a1a;
-      max-width: 680px;
-    }
-    .event-desc a { color: var(--crimson); text-decoration: none; border-bottom: 1px solid currentColor; }
-    .event-desc a:hover { color: var(--deep); }
-
-    .event-tags {
-      display: flex;
-      gap: .5rem;
-      flex-wrap: wrap;
-      margin-top: .85rem;
-      align-items: center;
-    }
-    .tag {
       font-family: 'EB Garamond', serif;
-      font-size: .82rem;
-      font-style: italic;
-      color: var(--brown);
-      padding: .1rem .55rem;
-      border: 1px solid rgba(141,119,95,.35);
-      border-radius: 1px;
-      letter-spacing: .02em;
+      font-size: 1rem; line-height: 1.65; color: #3d2020;
     }
-    .tag.t-ticket  { color: var(--crimson); border-color: rgba(167,29,49,.3); }
-    .tag.t-regalia { color: var(--deep); border-color: rgba(63,13,18,.25); }
-    .tag.t-seniors { color: var(--brown); }
-    .tag.t-online  { color: #1f4f30; border-color: rgba(31,79,48,.3); }
+    .event-desc a { color: var(--crimson); }
+    .event-desc strong { font-weight: 600; }
 
-    .map-btn {
-      display: inline-block;
-      margin-top: .8rem;
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: .92rem;
-      color: var(--crimson);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      letter-spacing: .01em;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(167,29,49,.35);
-      transition: color .15s, border-color .15s;
+    .event-badges { display: flex; gap: .45rem; flex-wrap: wrap; margin-top: .65rem; }
+    .badge {
+      font-family: 'Outfit', sans-serif;
+      font-size: .7rem; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: .18rem .6rem; border-radius: 3px;
     }
-    .map-btn:hover { color: var(--deep); border-bottom-color: var(--deep); }
+    .badge-ticket  { background: var(--crimson); color: white; }
+    .badge-free    { background: var(--gold); color: var(--deep); }
+    .badge-regalia { background: var(--deep); color: var(--cream); }
+    .badge-seniors { background: var(--brown); color: white; }
+    .badge-online  { background: #2a5a3a; color: white; }
 
-    /* ─── MAP PANEL ─── */
+    .map-link-btn {
+      display: inline-flex; align-items: center; gap: .3rem;
+      margin-top: .65rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: .76rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase;
+      color: var(--crimson); background: none;
+      border: 1px solid var(--crimson); padding: .22rem .7rem; border-radius: 3px;
+      cursor: pointer; transition: background .18s, color .18s;
+    }
+    .map-link-btn:hover { background: var(--crimson); color: white; }
+
+    /* ── MAP ── */
     .map-intro {
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: 1rem;
-      color: var(--brown);
-      margin-bottom: 1.2rem;
+      font-family: 'EB Garamond', serif; font-style: italic;
+      font-size: 1rem; color: var(--brown); margin-bottom: 1.1rem; line-height: 1.6;
     }
     .map-legend {
-      display: flex;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-      font-family: 'EB Garamond', serif;
-      font-size: .9rem;
-      color: var(--brown);
+      display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;
     }
-    .legend-item { display: flex; align-items: center; gap: .4rem; }
-    .legend-dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-item {
+      font-family: 'Outfit', sans-serif; font-size: .8rem;
+      display: flex; align-items: center; gap: .35rem; color: var(--deep);
+    }
+    .legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
 
     #map {
-      width: 100%;
-      height: 510px;
-      border-radius: 3px;
-      border: 1px solid var(--gold);
-      box-shadow: 0 3px 16px rgba(63,13,18,.12);
+      width: 100%; height: 500px;
+      border-radius: 6px; border: 2px solid var(--gold);
+      box-shadow: 0 4px 20px rgba(63,13,18,.13);
     }
 
     .venue-list {
-      margin-top: 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1px;
-      background: rgba(63,13,18,.1);
-      border: 1px solid rgba(63,13,18,.1);
+      margin-top: 1.8rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .9rem;
     }
     .venue-card {
-      background: white;
-      padding: 1rem 1.1rem;
-      cursor: pointer;
-      transition: background .15s;
+      background: white; border-radius: 6px;
+      padding: .9rem 1.1rem; border: 1px solid var(--gold);
+      cursor: pointer; transition: box-shadow .2s, transform .15s;
     }
-    .venue-card:hover { background: #fdf9f0; }
+    .venue-card:hover { box-shadow: 0 3px 14px rgba(63,13,18,.1); transform: translateY(-2px); }
     .venue-card h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--deep);
-      margin-bottom: .2rem;
+      font-size: 1rem; font-weight: 700; color: var(--deep); margin-bottom: .2rem;
     }
-    .venue-card p   { font-family: 'EB Garamond', serif; font-style: italic; font-size: .85rem; color: var(--brown); }
-    .venue-events   { font-family: 'EB Garamond', serif; font-size: .85rem; color: var(--crimson); margin-top: .3rem; }
+    .venue-card p    { font-family: 'Outfit', sans-serif; font-size: .78rem; color: var(--brown); }
+    .venue-events    { font-family: 'Outfit', sans-serif; font-size: .78rem; color: var(--crimson); margin-top: .3rem; }
 
-    /* ─── LEAFLET POPUP ─── */
+    /* ── LEAFLET POPUP ── */
     .leaflet-popup-content-wrapper {
-      border-radius: 2px !important;
-      border-top: 2px solid var(--crimson) !important;
-      font-family: 'EB Garamond', serif !important;
-      min-width: 200px;
+      border-radius: 5px !important;
+      border-top: 3px solid var(--crimson) !important;
+      font-family: 'Outfit', sans-serif !important;
+      min-width: 210px;
     }
-    .popup-venue { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; color: var(--deep); margin-bottom: .4rem; }
-    .popup-event { font-size: .9rem; color: #333; padding: .22rem 0; border-bottom: 1px solid #eee; }
+    .popup-venue  { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; color: var(--deep); margin-bottom: .4rem; }
+    .popup-event  { font-size: .85rem; color: #333; padding: .22rem 0; border-bottom: 1px solid #eee; }
     .popup-event:last-child { border-bottom: none; }
-    .popup-time  { font-style: italic; font-size: .8rem; color: var(--brown); }
-    .popup-badge { display: inline-block; font-style: italic; font-size: .72rem; padding: .05rem .35rem;
-                   border: 1px solid; border-radius: 1px; margin-left: .3rem; }
-    .pb-ticket  { color: var(--crimson); border-color: var(--crimson); }
-    .pb-free    { color: var(--brown);   border-color: var(--gold); }
-    .pb-seniors { color: var(--brown);   border-color: var(--brown); }
+    .popup-time   { font-size: .75rem; color: var(--brown); }
+    .popup-badge  { display: inline-block; font-size: .68rem; font-weight: 700; padding: .1rem .4rem;
+                    border-radius: 2px; margin-left: .3rem; text-transform: uppercase; letter-spacing: .04em; }
+    .pb-ticket  { background: var(--crimson); color: white; }
+    .pb-free    { background: var(--gold); color: var(--deep); }
+    .pb-seniors { background: var(--brown); color: white; }
 
-    /* ─── FOOTER ─── */
+    /* ── FOOTER ── */
     footer {
-      background: var(--deep);
-      padding: 1.8rem 2rem;
+      background: var(--deep); color: var(--brown);
+      text-align: center; padding: 1.4rem 1rem;
+      font-family: 'Outfit', sans-serif; font-size: .82rem; line-height: 1.9;
     }
-    .footer-inner {
-      max-width: 860px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: .5rem;
-    }
-    footer p {
-      font-family: 'EB Garamond', serif;
-      font-size: .9rem;
-      color: var(--brown);
-      font-style: italic;
-    }
-    footer a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(213,191,134,.3); }
-    footer a:hover { color: var(--cream); }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
 
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(10px); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
   </style>
@@ -351,17 +272,17 @@
 
 <header>
   <div class="header-inner">
-    <div class="header-label">Harvard College · Class of 2026</div>
-    <h1>Commencement<em>May 26 – 29, 2026</em></h1>
+    <div class="header-eyebrow">Harvard College · Class of 2026</div>
+    <h1>Commencement Week<span>May 26 – 29, 2026</span></h1>
     <div class="header-rule"></div>
-    <div class="header-meta">Cambridge, Massachusetts</div>
+    <div class="header-sub">Cambridge, Massachusetts</div>
   </div>
 </header>
 
 <nav>
   <div class="nav-inner">
-    <button class="tab-btn active" onclick="showPanel('schedule')">Schedule</button>
-    <button class="tab-btn" onclick="showPanel('map')">Map</button>
+    <button class="tab-btn active" onclick="showPanel('schedule')">📅 Schedule</button>
+    <button class="tab-btn" onclick="showPanel('map')">🗺 Map</button>
   </div>
 </nav>
 
@@ -372,9 +293,9 @@
 
     <div class="ticket-key">
       <strong>Key</strong>
-      <span class="key-item"><span class="key-dot" style="background:var(--crimson)"></span>Tickets required</span>
-      <span class="key-item"><span class="key-dot" style="background:var(--gold)"></span>Free / no ticket</span>
-      <span class="key-item"><span class="key-dot" style="background:var(--brown)"></span>Restricted entry</span>
+      <span class="key-item"><span class="key-dot" style="background:var(--crimson)"></span>Tickets Required</span>
+      <span class="key-item"><span class="key-dot" style="background:var(--gold)"></span>Free / No Ticket</span>
+      <span class="key-item"><span class="key-dot" style="background:var(--brown)"></span>Restricted Entry</span>
     </div>
 
     <!-- TUESDAY -->
@@ -385,78 +306,63 @@
       </div>
 
       <div class="event-card no-tickets">
-        <div class="event-meta">
-          <span>1:15 – 2:00 PM</span>
-          <span class="event-meta-sep">·</span>
-          <span>Old Yard, Harvard Yard</span>
-        </div>
+        <div class="event-time">1:15 – 2:00 PM</div>
         <div class="event-title">Baccalaureate Procession</div>
+        <div class="event-location">Old Yard, Harvard Yard</div>
         <div class="event-desc">The Class of 2026 processes around Old Yard into Tercentenary Theatre. Procession starts at the corner of Holworthy and Thayer, passing University Hall before entering between University Hall and Weld. Seniors should arrive by 1:15 PM. Guests are welcome to observe.</div>
-        <div class="event-tags">
-          <span class="tag">No ticket required</span>
-          <span class="tag t-regalia">Regalia required</span>
+        <div class="event-badges">
+          <span class="badge badge-free">No Ticket Required</span>
+          <span class="badge badge-regalia">Regalia Required</span>
         </div>
-        <button class="map-btn" onclick="goToMap('old-yard')">View on map →</button>
+        <button class="map-link-btn" onclick="goToMap('old-yard')">View on Map →</button>
       </div>
 
       <div class="event-card no-tickets">
-        <div class="event-meta">
-          <span>2:00 – 3:30 PM</span>
-          <span class="event-meta-sep">·</span>
-          <span>Tercentenary Theatre, Harvard Yard</span>
-        </div>
+        <div class="event-time">2:00 – 3:30 PM</div>
         <div class="event-title">Baccalaureate Ceremony</div>
-        <div class="event-desc">President Garber shares remarks with the Class of 2026 and students offer readings from their religious, spiritual, and ethical traditions. Seniors sit in assigned sections near the stage; guests take remaining sections. After the program, guests should remain seated while seniors process to Widener Library Steps.</div>
-        <div class="event-tags">
-          <span class="tag">No ticket required</span>
-          <span class="tag t-regalia">Regalia required</span>
+        <div class="event-location">Tercentenary Theatre, Harvard Yard</div>
+        <div class="event-desc">President Garber shares remarks with the Class of 2026, and students offer readings from their religious, spiritual, and ethical traditions. Seniors sit in assigned sections near the stage; guests take remaining sections. After the program, guests should remain seated while seniors process to Widener Library Steps.</div>
+        <div class="event-badges">
+          <span class="badge badge-free">No Ticket Required</span>
+          <span class="badge badge-regalia">Regalia Required</span>
         </div>
-        <button class="map-btn" onclick="goToMap('tercentenary')">View on map →</button>
+        <button class="map-link-btn" onclick="goToMap('tercentenary')">View on Map →</button>
       </div>
 
       <div class="event-card no-tickets">
-        <div class="event-meta">
-          <span>3:30 – 4:00 PM</span>
-          <span class="event-meta-sep">·</span>
-          <span>Widener Library Steps</span>
-        </div>
+        <div class="event-time">3:30 – 4:00 PM</div>
         <div class="event-title">Class of 2026 Photograph</div>
+        <div class="event-location">Widener Library Steps</div>
         <div class="event-desc">Graduating seniors process from Tercentenary Theatre to the steps of Widener Library for the official class photograph. Rain date: Wednesday May 27, immediately following Class Day Exercises. Photos can be ordered at the Panfoto website (link forthcoming).</div>
-        <div class="event-tags">
-          <span class="tag">No ticket required</span>
-          <span class="tag t-seniors">Seniors only</span>
-          <span class="tag t-regalia">Regalia required</span>
+        <div class="event-badges">
+          <span class="badge badge-free">No Ticket Required</span>
+          <span class="badge badge-seniors">Seniors Only</span>
+          <span class="badge badge-regalia">Regalia Required</span>
         </div>
-        <button class="map-btn" onclick="goToMap('widener')">View on map →</button>
+        <button class="map-link-btn" onclick="goToMap('widener')">View on Map →</button>
       </div>
 
       <div class="event-card no-tickets">
-        <div class="event-meta">
-          <span>4:00 – 5:00 PM</span>
-          <span class="event-meta-sep">·</span>
-          <span>Old Yard, Harvard Yard</span>
-        </div>
-        <div class="event-title">Dessert Reception <span style="font-weight:400;font-style:italic;font-size:.9em">(tentative)</span></div>
+        <div class="event-time">4:00 – 5:00 PM</div>
+        <div class="event-title">Dessert Reception <em style="font-weight:400;font-size:.88em">(tentative)</em></div>
+        <div class="event-location">Old Yard, Harvard Yard</div>
         <div class="event-desc">A celebratory dessert reception in Old Yard for graduating seniors and their guests, following the Baccalaureate Ceremony and class photograph.</div>
-        <div class="event-tags">
-          <span class="tag">No ticket required</span>
-          <span class="tag t-seniors">Seniors + guests</span>
+        <div class="event-badges">
+          <span class="badge badge-free">No Ticket Required</span>
+          <span class="badge badge-seniors">Seniors + Guests</span>
         </div>
-        <button class="map-btn" onclick="goToMap('old-yard')">View on map →</button>
+        <button class="map-link-btn" onclick="goToMap('old-yard')">View on Map →</button>
       </div>
 
       <div class="event-card no-tickets">
-        <div class="event-meta">
-          <span>8:00 – 10:00 PM</span>
-          <span class="event-meta-sep">·</span>
-          <span>Tercentenary Theatre, Harvard Yard</span>
-        </div>
+        <div class="event-time">8:00 – 10:00 PM</div>
         <div class="event-title">Harvard University Band &amp; Harvard Choruses Concert</div>
+        <div class="event-location">Tercentenary Theatre, Harvard Yard</div>
         <div class="event-desc">An annual evening concert featuring Harvard's student performers. Open to all members of the Harvard community — a beloved tradition to close the first evening of Commencement Week.</div>
-        <div class="event-tags">
-          <span class="tag">No ticket required</span>
+        <div class="event-badges">
+          <span class="badge badge-free">No Ticket Required</span>
         </div>
-        <button class="map-btn" onclick="goToMap('tercentenary')">View on map →</button>
+        <button class="map-link-btn" onclick="goToMap('tercentenary')">View on Map →</button>
       </div>
     </section>
 
@@ -468,47 +374,38 @@
       </div>
 
       <div class="event-card tickets">
-        <div class="event-meta">
-          <span>Noon – 2:00 PM</span>
-          <span class="event-meta-sep">·</span>
-          <span>Old Yard, Harvard Yard</span>
-        </div>
+        <div class="event-time">Noon – 2:00 PM</div>
         <div class="event-title">Class Day Picnic</div>
+        <div class="event-location">Old Yard, Harvard Yard</div>
         <div class="event-desc">A casual bagged lunch before Class Day Exercises. Harvard Yard closes at 11:00 AM; entry by ticket scan at four gates: Widener, Johnston, Meyer/Thayer, and Sever. Staff exchange picnic tickets for a bagged lunch inside the Yard.</div>
-        <div class="event-tags">
-          <span class="tag t-ticket">Tickets required</span>
+        <div class="event-badges">
+          <span class="badge badge-ticket">Tickets Required</span>
         </div>
-        <button class="map-btn" onclick="goToMap('old-yard')">View on map →</button>
+        <button class="map-link-btn" onclick="goToMap('old-yard')">View on Map →</button>
       </div>
 
       <div class="event-card tickets">
-        <div class="event-meta">
-          <span>2:00 – 4:00 PM</span>
-          <span class="event-meta-sep">·</span>
-          <span>Tercentenary Theatre, Harvard Yard</span>
-        </div>
+        <div class="event-time">2:00 – 4:00 PM</div>
         <div class="event-title">Class Day Exercises</div>
+        <div class="event-location">Tercentenary Theatre, Harvard Yard</div>
         <div class="event-desc">The Class of 2026's own celebration — featuring the Class Day speaker, Harvard Oration, Ivy Oration, Ames Awards, Class Ode, and remarks from Dean David Deming. No assigned seating; seniors sit with family. No regalia — business casual. Streamed at <a href="https://harvard.edu/live" target="_blank">harvard.edu/live</a> and YouTube.</div>
-        <div class="event-tags">
-          <span class="tag t-ticket">Tickets required</span>
-          <span class="tag t-online">Streamed online</span>
+        <div class="event-badges">
+          <span class="badge badge-ticket">Tickets Required</span>
+          <span class="badge badge-online">Streamed Online</span>
         </div>
-        <button class="map-btn" onclick="goToMap('tercentenary')">View on map →</button>
+        <button class="map-link-btn" onclick="goToMap('tercentenary')">View on Map →</button>
       </div>
 
       <div class="event-card no-tickets">
-        <div class="event-meta">
-          <span>4:30 – 6:30 PM</span>
-          <span class="event-meta-sep">·</span>
-          <span>McKinlock Courtyard, Leverett House</span>
-        </div>
-        <div class="event-title">Leverett Class Day Family Reception <span style="font-weight:400;font-style:italic;font-size:.88em">(DHall if rain)</span></div>
+        <div class="event-time">4:30 – 6:30 PM</div>
+        <div class="event-title">Leverett Class Day Family Reception <em style="font-weight:400;font-size:.88em">(DHall if rain)</em></div>
+        <div class="event-location">McKinlock Courtyard, Leverett House</div>
         <div class="event-desc">Leverett House hosts graduating seniors and their families in McKinlock Courtyard after Class Day. Food, drinks, and a chance to introduce families to the Faculty Deans and to each other. Leverett starts earlier than most houses so families can come straight from the Yard, and so student-athletes can attend before their 5 PM dinner.</div>
-        <div class="event-tags">
-          <span class="tag">No tickets required</span>
-          <span class="tag t-seniors">Seniors + families</span>
+        <div class="event-badges">
+          <span class="badge badge-free">No Tickets Required</span>
+          <span class="badge badge-seniors">Seniors + Families</span>
         </div>
-        <button class="map-btn" onclick="goToMap('leverett')">View on map →</button>
+        <button class="map-link-btn" onclick="goToMap('leverett')">View on Map →</button>
       </div>
     </section>
 
@@ -520,80 +417,65 @@
       </div>
 
       <div class="event-card no-tickets">
-        <div class="event-meta">
-          <span>Early morning (time TBD)</span>
-          <span class="event-meta-sep">·</span>
-          <span>Leverett House</span>
-        </div>
+        <div class="event-time">Early Morning (time TBD)</div>
         <div class="event-title">Leverett Senior Breakfast</div>
+        <div class="event-location">Leverett House</div>
         <div class="event-desc">Leverett House hosts a senior breakfast on Commencement morning before seniors make their way up to the Yard for the procession. More details from Leverett staff closer to the date.</div>
-        <div class="event-tags">
-          <span class="tag">No ticket required</span>
-          <span class="tag t-seniors">Leverett seniors</span>
+        <div class="event-badges">
+          <span class="badge badge-free">No Ticket Required</span>
+          <span class="badge badge-seniors">Leverett Seniors</span>
         </div>
-        <button class="map-btn" onclick="goToMap('leverett')">View on map →</button>
+        <button class="map-link-btn" onclick="goToMap('leverett')">View on Map →</button>
       </div>
 
       <div class="event-card restricted">
-        <div class="event-meta">
-          <span>8:00 – 8:15 AM</span>
-          <span class="event-meta-sep">·</span>
-          <span>Harvard Yard, near Holden Chapel</span>
-        </div>
+        <div class="event-time">8:00 – 8:15 AM</div>
         <div class="event-title">Senior Valediction</div>
+        <div class="event-location">Harvard Yard, near Holden Chapel</div>
         <div class="event-desc">A brief seniors-only gathering just before the Commencement procession lineup. Seniors march into the Yard with their Houses. Families and guests should already be finding their seats in Tercentenary Theatre. Wear regalia.</div>
-        <div class="event-tags">
-          <span class="tag t-seniors">Graduating seniors only</span>
-          <span class="tag t-regalia">Regalia required</span>
+        <div class="event-badges">
+          <span class="badge badge-seniors">Graduating Seniors Only</span>
+          <span class="badge badge-regalia">Regalia Required</span>
         </div>
       </div>
 
       <div class="event-card tickets">
-        <div class="event-meta">
-          <span>9:30 AM – 12:15 PM</span>
-          <span class="event-meta-sep">·</span>
-          <span>Tercentenary Theatre, Harvard Yard</span>
-        </div>
+        <div class="event-time">9:30 AM – 12:15 PM</div>
         <div class="event-title">375th Harvard University Commencement Exercises</div>
+        <div class="event-location">Tercentenary Theatre, Harvard Yard</div>
         <div class="event-desc">The University-wide ceremony celebrating all Harvard graduates. Features student remarks, conferral of degrees, honorary degrees, and the Commencement Speaker. Seniors process in by House. Names are not called and diplomas are not presented here — that happens at the Leverett ceremony. Streamed at <a href="https://harvard.edu/live" target="_blank">harvard.edu/live</a>. Yard gates open at 6:45 AM.</div>
-        <div class="event-tags">
-          <span class="tag t-ticket">Tickets required for guests</span>
-          <span class="tag t-regalia">Regalia required (seniors)</span>
-          <span class="tag t-online">Streamed online</span>
+        <div class="event-badges">
+          <span class="badge badge-ticket">Tickets Required for Guests</span>
+          <span class="badge badge-regalia">Regalia Required (seniors)</span>
+          <span class="badge badge-online">Streamed Online</span>
         </div>
-        <button class="map-btn" onclick="goToMap('tercentenary')">View on map →</button>
+        <button class="map-link-btn" onclick="goToMap('tercentenary')">View on Map →</button>
       </div>
 
       <div class="event-card tickets">
-        <div class="event-meta">
-          <span>Immediately after Commencement (~12:15 PM)</span>
-          <span class="event-meta-sep">·</span>
-          <span>Leverett House</span>
-        </div>
+        <div class="event-time">Immediately after Commencement (~12:15 PM)</div>
         <div class="event-title">Leverett House Ceremony &amp; Luncheon</div>
+        <div class="event-location">Towers Courtyard, Leverett House (outdoor, weather permitting)</div>
         <div class="event-desc">Leverett holds its ceremony immediately after the Yard exercises and before lunch — please return to the house quickly so the ceremony can begin. Graduates' names are called and diplomas are presented here.<br><br>
         <strong>If outdoors — Towers Courtyard:</strong> Unlimited guests welcome to watch the ceremony. Lunch tickets required to eat.<br><br>
         <strong>If indoors — Malkin Athletic Center (MAC):</strong> Each graduate may bring 4 guests inside. Additional guests may watch a livestream from common spaces or your room, then join for lunch immediately after.</div>
-        <div class="event-tags">
-          <span class="tag t-ticket">Lunch requires ticket</span>
-          <span class="tag">Ceremony: free to watch</span>
-          <span class="tag t-regalia">Regalia required</span>
+        <div class="event-badges">
+          <span class="badge badge-ticket">Lunch Requires Ticket</span>
+          <span class="badge badge-free">Ceremony: Free to Watch</span>
+          <span class="badge badge-regalia">Regalia Required</span>
         </div>
-        <button class="map-btn" onclick="goToMap('leverett')">View on map →</button>
+        <button class="map-link-btn" onclick="goToMap('leverett')">View on Map →</button>
       </div>
 
       <div class="event-card no-tickets">
-        <div class="event-meta">
-          <span>4:00 PM</span>
-          <span class="event-meta-sep">·</span>
-          <span>Carpenter Center for the Visual Arts</span>
-        </div>
+        <div class="event-time">4:00 PM</div>
         <div class="event-title">AFVS Class of 2026 Commencement Party</div>
+        <div class="event-location">Carpenter Center for the Visual Arts</div>
         <div class="event-desc">The Art, Film &amp; Visual Studies department's celebration for the graduating Class of 2026. No tickets or registration needed — just show up. A chance to celebrate with fellow AFVS students, faculty, and friends after the main ceremonies.</div>
-        <div class="event-tags">
-          <span class="tag">Nothing required</span>
+        <div class="event-badges">
+          <span class="badge badge-free">Nothing Required — Just Show Up</span>
         </div>
-        <button class="map-btn" onclick="goToMap('carpenter')">View on map →</button>
+        <button class="map-link-btn" onclick="goToMap('carpenter')">View on Map →</button>
       </div>
     </section>
 
@@ -601,10 +483,10 @@
 
   <!-- ══════════ MAP ══════════ -->
   <div id="map-panel" class="panel">
-    <p class="map-intro">Click any marker to see events at that location. Use the cards below to jump to a venue.</p>
+    <p class="map-intro">Click any marker to see events at that location. Use the venue cards below to jump to a specific spot.</p>
     <div class="map-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#A71D31"></div>Multiple events</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#D5BF86"></div>Single event</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#A71D31"></div>Multiple Events</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#D5BF86"></div>Single Event</div>
     </div>
 
     <div id="map"></div>
@@ -641,27 +523,23 @@
 </main>
 
 <footer>
-  <div class="footer-inner">
-    <p>Harvard College Commencement 2026</p>
-    <p>
-      <a href="https://alumni.harvard.edu/college/seniors/commencement" target="_blank">alumni.harvard.edu</a>
-      &nbsp;&nbsp;·&nbsp;&nbsp;
-      <a href="https://commencement.harvard.edu" target="_blank">commencement.harvard.edu</a>
-    </p>
-  </div>
+  <p>Harvard College Commencement 2026 — Class of 2026</p>
+  <p style="margin-top:.2rem">
+    <a href="https://alumni.harvard.edu/college/seniors/commencement" target="_blank">alumni.harvard.edu</a>
+    &nbsp;·&nbsp;
+    <a href="https://commencement.harvard.edu" target="_blank">commencement.harvard.edu</a>
+  </p>
+  <p style="margin-top:.2rem;opacity:.55">All events rain or shine · All persons &amp; bags subject to inspection</p>
 </footer>
 
 <script>
-/* ── TABS ── */
 function showPanel(id) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id + '-panel').classList.add('active');
   document.querySelectorAll('.tab-btn').forEach(b => {
-    if ((id === 'schedule' && b.textContent.trim() === 'Schedule') ||
-        (id === 'map'      && b.textContent.trim() === 'Map')) {
-      b.classList.add('active');
-    }
+    if ((id === 'schedule' && b.textContent.includes('Schedule')) ||
+        (id === 'map'      && b.textContent.includes('Map'))) b.classList.add('active');
   });
   if (id === 'map') {
     if (!window._mapInit) initMap();
@@ -669,7 +547,6 @@ function showPanel(id) {
   }
 }
 
-/* ── VENUES ── */
 const venues = [
   {
     key: 'old-yard',
@@ -685,7 +562,7 @@ const venues = [
   {
     key: 'tercentenary',
     name: 'Tercentenary Theatre',
-    lat: 42.37488, lng: -71.11640,
+    lat: 42.37505, lng: -71.11650,
     color: '#A71D31', zoom: 17,
     events: [
       { title: 'Baccalaureate Ceremony',       time: 'Tue 2:00–3:30 PM',     ticket: 'free'   },
@@ -697,7 +574,7 @@ const venues = [
   {
     key: 'widener',
     name: 'Widener Library Steps',
-    lat: 42.37437, lng: -71.11572,
+    lat: 42.37425, lng: -71.11530,
     color: '#D5BF86', zoom: 17,
     events: [
       { title: 'Class of 2026 Photograph', time: 'Tue 3:30–4:00 PM', ticket: 'free' },
@@ -706,12 +583,12 @@ const venues = [
   {
     key: 'leverett',
     name: 'Leverett House',
-    lat: 42.36910, lng: -71.11567,
+    lat: 42.36893, lng: -71.11552,
     color: '#A71D31', zoom: 17,
     events: [
-      { title: 'Senior Breakfast',           time: 'Thu early AM',           ticket: 'free'   },
-      { title: 'Family Reception',           time: 'Wed 4:30–6:30 PM',       ticket: 'free'   },
-      { title: 'Ceremony & Luncheon',        time: 'Thu after Commencement', ticket: 'ticket' },
+      { title: 'Senior Breakfast',     time: 'Thu early AM',           ticket: 'free'   },
+      { title: 'Family Reception',     time: 'Wed 4:30–6:30 PM',       ticket: 'free'   },
+      { title: 'Ceremony & Luncheon', time: 'Thu after Commencement',  ticket: 'ticket' },
     ]
   },
   {
@@ -728,8 +605,8 @@ const venues = [
 function buildPopup(v) {
   let html = `<div class="popup-venue">${v.name}</div>`;
   v.events.forEach(e => {
-    const b = e.ticket === 'ticket' ? '<span class="popup-badge pb-ticket">ticket req.</span>'
-            :                         '<span class="popup-badge pb-free">free</span>';
+    const b = e.ticket === 'ticket' ? '<span class="popup-badge pb-ticket">Ticket Req.</span>'
+                                    : '<span class="popup-badge pb-free">Free</span>';
     html += `<div class="popup-event"><strong>${e.title}</strong>${b}<br>
              <span class="popup-time">${e.time}</span></div>`;
   });
@@ -739,8 +616,8 @@ function buildPopup(v) {
 function dotIcon(color) {
   return L.divIcon({
     className: '',
-    html: `<div style="width:18px;height:18px;border-radius:50%;background:${color};border:2.5px solid white;box-shadow:0 1px 6px rgba(0,0,0,.4)"></div>`,
-    iconSize: [18,18], iconAnchor: [9,9], popupAnchor: [0,-11]
+    html: `<div style="width:20px;height:20px;border-radius:50%;background:${color};border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,.45)"></div>`,
+    iconSize: [20,20], iconAnchor: [10,10], popupAnchor: [0,-12]
   });
 }
 
@@ -748,7 +625,7 @@ let map, markerMap = {};
 
 function initMap() {
   window._mapInit = true;
-  map = L.map('map', { center: [42.3730, -71.1160], zoom: 15 });
+  map = L.map('map', { center: [42.3730, -71.1158], zoom: 15 });
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, © <a href="https://carto.com">CARTO</a>',
     maxZoom: 19
