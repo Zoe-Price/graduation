@@ -453,15 +453,15 @@
       </div>
 
       <div class="event-card no-tickets">
-        <div class="event-time">4:30 or 5:00 – 6:30 PM</div>
-        <div class="event-title">Faculty Deans' Receptions</div>
-        <div class="event-location">Your House</div>
-        <div class="event-desc">Each undergraduate House hosts a reception for graduating seniors and their guests. Start time and specific location vary by House—check with your House for exact timing and details.</div>
+        <div class="event-time">4:30 – 6:30 PM</div>
+        <div class="event-title">Leverett Class Day Family Reception</div>
+        <div class="event-location">McKinlock Courtyard, Leverett House <em style="font-weight:400">(DHall if rain)</em></div>
+        <div class="event-desc">Leverett House hosts graduating seniors and their families in McKinlock Courtyard after Class Day. Come enjoy food and drinks, and introduce your families to the Faculty Deans and to each other. Leverett starts a bit earlier than most houses so families can head straight from the Yard—and so student-athletes can attend before their 5 PM dinner.</div>
         <div class="event-badges">
-          <span class="badge badge-free">No Ticket Required</span>
-          <span class="badge badge-seniors">House Seniors + Guests</span>
+          <span class="badge badge-free">No Tickets Required</span>
+          <span class="badge badge-seniors">Seniors + Families</span>
         </div>
-        <button class="map-link-btn" onclick="goToMap('houses')">View on Map →</button>
+        <button class="map-link-btn" onclick="goToMap('leverett')">View on Map →</button>
       </div>
     </section>
 
@@ -470,6 +470,18 @@
       <div class="day-header">
         <span class="day-name">Thursday</span>
         <span class="day-date">May 28 — Commencement Day</span>
+      </div>
+
+      <div class="event-card no-tickets">
+        <div class="event-time">Early Morning (time TBD)</div>
+        <div class="event-title">Leverett Senior Breakfast</div>
+        <div class="event-location">Leverett House</div>
+        <div class="event-desc">Leverett House hosts a senior breakfast bright and early on Commencement morning before seniors make their way up to the Yard for the procession. More details from Leverett staff closer to the date.</div>
+        <div class="event-badges">
+          <span class="badge badge-free">No Ticket Required</span>
+          <span class="badge badge-seniors">Leverett Seniors</span>
+        </div>
+        <button class="map-link-btn" onclick="goToMap('leverett')">View on Map →</button>
       </div>
 
       <div class="event-card restricted">
@@ -499,17 +511,18 @@
       </div>
 
       <div class="event-card tickets">
-        <div class="event-time">12:30 – 3:00 PM</div>
-        <div class="event-title">Diploma Presentation &amp; Luncheon</div>
-        <div class="event-location">Your House</div>
-        <div class="event-desc">The intimate House-level ceremony where graduates' names are called and diplomas are formally presented. This is the most personal moment of Commencement Week. Logistics vary by House. The diploma ceremony is free to observe; tickets are required only for the lunch. Wear regalia.</div>
+        <div class="event-time">Immediately after Commencement (~12:15 PM)</div>
+        <div class="event-title">Leverett House Ceremony &amp; Luncheon</div>
+        <div class="event-location">Towers Courtyard, Leverett House <em style="font-weight:400">(outdoor, weather permitting)</em></div>
+        <div class="event-desc">Leverett holds its ceremony <strong>immediately after</strong> the Yard exercises and <strong>before</strong> lunch — please return to the house quickly so the ceremony can begin. Graduates' names are called and diplomas are presented here, not at the University ceremony.<br><br>
+        <strong>☀️ If outdoors (Towers Courtyard):</strong> Unlimited guests welcome to watch the ceremony. Lunch tickets required to eat.<br>
+        <strong>🌧️ If indoors (Malkin Athletic Center / MAC):</strong> Each graduate may bring <strong>4 guests</strong> inside. Additional guests are welcome to watch a livestream from common spaces or your room, then join for lunch immediately after.</div>
         <div class="event-badges">
           <span class="badge badge-ticket">Lunch Requires Ticket</span>
           <span class="badge badge-free">Ceremony: Free to Watch</span>
           <span class="badge badge-regalia">Regalia Required</span>
         </div>
-
-        <button class="map-link-btn" onclick="goToMap('houses')">View on Map →</button>
+        <button class="map-link-btn" onclick="goToMap('leverett')">View on Map →</button>
       </div>
 
       <div class="event-card no-tickets">
@@ -559,10 +572,10 @@
         <p>Near Holden Chapel, Harvard Yard</p>
         <div class="venue-events">Senior Valediction (Thu 8:00 AM)</div>
       </div>
-      <div class="venue-card" onclick="flyTo('houses')">
-        <h3>Undergraduate Houses</h3>
-        <p>Various locations around campus</p>
-        <div class="venue-events">Faculty Deans' Receptions · Diploma Presentation &amp; Luncheon</div>
+      <div class="venue-card" onclick="flyTo('leverett')">
+        <h3>Leverett House</h3>
+        <p>Leverett Towers, DeWolfe Street</p>
+        <div class="venue-events">Senior Breakfast · Family Reception · Ceremony &amp; Luncheon</div>
       </div>
       <div class="venue-card" onclick="flyTo('carpenter')">
         <h3>Carpenter Center for the Visual Arts</h3>
@@ -622,7 +635,7 @@ const venues = [
   {
     key: 'tercentenary',
     name: 'Tercentenary Theatre',
-    lat: 42.37408, lng: -71.11560,
+    lat: 42.37488, lng: -71.11640,
     color: '#A71D31', zoom: 17,
     events: [
       { title: 'Baccalaureate Ceremony',       time: 'Tue 2:00–3:30 PM',     ticket: 'free'   },
@@ -634,7 +647,7 @@ const venues = [
   {
     key: 'widener',
     name: 'Widener Library Steps',
-    lat: 42.37420, lng: -71.11508,
+    lat: 42.37437, lng: -71.11572,
     color: '#D5BF86', zoom: 17,
     events: [
       { title: 'Class of 2026 Photograph', time: 'Tue 3:30–4:00 PM', ticket: 'free' },
@@ -650,19 +663,20 @@ const venues = [
     ]
   },
   {
-    key: 'houses',
-    name: 'Undergraduate Houses (various)',
-    lat: 42.37185, lng: -71.11720,
-    color: '#A71D31', zoom: 16,
+    key: 'leverett',
+    name: 'Leverett House',
+    lat: 42.36910, lng: -71.11567,
+    color: '#A71D31', zoom: 17,
     events: [
-      { title: "Faculty Deans' Receptions",      time: 'Wed 4:30/5:00–6:30 PM', ticket: 'free'   },
-      { title: 'Diploma Presentation & Luncheon',time: 'Thu 12:30–3:00 PM',     ticket: 'ticket' },
+      { title: 'Senior Breakfast',              time: 'Thu early AM (TBD)',      ticket: 'free'   },
+      { title: 'Leverett Family Reception',     time: 'Wed 4:30–6:30 PM',        ticket: 'free'   },
+      { title: 'Leverett Ceremony & Luncheon',  time: 'Thu after Commencement',  ticket: 'ticket' },
     ]
   },
   {
     key: 'carpenter',
     name: 'Carpenter Center for the Visual Arts',
-    lat: 42.37453, lng: -71.11681,
+    lat: 42.37452, lng: -71.11468,
     color: '#D5BF86', zoom: 17,
     events: [
       { title: 'AFVS Commencement Party 🎨', time: 'Thu 4:00 PM', ticket: 'free' },
